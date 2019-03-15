@@ -1,4 +1,4 @@
-TOKEN = 'ed1271af9e8883f7a7c2cefbfddfcbc61563029666c487b2f71a5227cce0d1b533c4af4c5b888633c06ae'
+TOKEN = 'c67fa7da119d456f129f4d33ba923b0f481de71f6002f395f0f12ea9b4f877943f4286750e7acdc4dfa98'
 
 
 from urllib.parse import urlencode
@@ -20,3 +20,6 @@ def get_token():
     token = input(str('Перейдите по ссылке, разрешите приложению доступ к Вашему аккаунту, '
                       'скопируйте и вставьте access_token\n'))
     return token
+
+
+get_token()

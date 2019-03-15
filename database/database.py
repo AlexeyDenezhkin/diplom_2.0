@@ -18,7 +18,4 @@ class DataBase:
 
     def check(self, value):
         res = list(self.db.users_list.find({'user_id': value}))
-        if len(res) != 0:
-            return False
-        else:
-            return True
+        return len(res) == 0

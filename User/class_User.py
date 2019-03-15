@@ -51,25 +51,20 @@ class User:
                 except ValueError:
                     self.bdate = self.bdate
                     self.age = self.age
-            else:
-                self.bdate = self.bdate
 
             if 'city' in user_info['response'][0]:
                 self.city = int(user_info['response'][0]['city']['id'])
-            else:
-                self.city = self.city
 
             if 'sex' in user_info['response'][0]:
                 self.sex = int(user_info['response'][0]['sex'])
-            else:
-                self.sex = self.sex
+
+            if 'relation' in user_info['response'][0]:
+                self.relation = int(user_info['response'][0]['relation'])
 
             if 'interests' in user_info['response'][0]:
                 interests = user_info['response'][0]['interests']
                 interests = ''.join(l for l in interests if l not in string.punctuation)
                 self.interests = set(interests.lower().split())
-            else:
-                self.interests = set()
 
         except KeyError:
             pass
@@ -205,23 +200,23 @@ class MainUser(User):
             sex = '1'
         else:
             sex = '2'
-        if self.age is not None:
-            age_from = str(self.age - 3)
-            age_to = str(self.age + 3)
-        else:
-            age_from = str(0)
-            age_to = str(50)
+
+        age_from = str(input('Введите диапазон возраста для поиска: \n'
+                             'от: '))
+        age_to = str(input('до: '))
+
         params = {
             'count': '50',
-            'fields': 'id,first_name,last_name,about,bdate,books,city,'
-                      'common_count,country,interests,photo_max_orig,sex',
+            'fields': 'id,first_name,last_name,bdate,city,country,common_count,'
+                      'interests,photo_max_orig,sex,books,status',
             'access_token': TOKEN,
             'v': '5.92',
             'city': str(self.city),
             'sex': sex,
             'age_from': age_from,
             'age_to': age_to,
-            'has_photo': '1'
+            'has_photo': '1',
+            'status': '6'
         }
         response = requests.get('https://api.vk.com/method/users.search', params)
         like_users_data = response.json()
