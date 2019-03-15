@@ -15,6 +15,7 @@ class User:
     friends_ = set()
     groups_ = set()
     books = set()
+    music = set()
 
     def __init__(self, user_id):
         if str(user_id).isdigit():
@@ -33,7 +34,7 @@ class User:
         params = {
             'user_ids': self.user_id,
             'fields': 'id,first_name,last_name,bdate,city,country,common_count,'
-                      'interests,photo_max_orig,sex,books',
+                      'interests,photo_max_orig,sex,books,music',
             'access_token': TOKEN,
             'v': '5.92'
         }
@@ -58,14 +59,20 @@ class User:
             if 'sex' in user_info['response'][0]:
                 self.sex = int(user_info['response'][0]['sex'])
 
-            if 'relation' in user_info['response'][0]:
-                self.relation = int(user_info['response'][0]['relation'])
-
             if 'interests' in user_info['response'][0]:
                 interests = user_info['response'][0]['interests']
                 interests = ''.join(l for l in interests if l not in string.punctuation)
                 self.interests = set(interests.lower().split())
 
+            if 'books' in user_info['response'][0]:
+                books = user_info['response'][0]['books']
+                books = ''.join(l for l in books if l not in string.punctuation)
+                self.books = set(books.lower().split())
+
+            if 'music' in user_info['response'][0]:
+                music = user_info['response'][0]['music']
+                music = ''.join(l for l in music if l not in string.punctuation)
+                self.music = set(music.lower().split())
         except KeyError:
             pass
         time.sleep(0.3)
@@ -208,7 +215,7 @@ class MainUser(User):
         params = {
             'count': '50',
             'fields': 'id,first_name,last_name,bdate,city,country,common_count,'
-                      'interests,photo_max_orig,sex,books,status',
+                      'interests,photo_max_orig,sex,books,music,status',
             'access_token': TOKEN,
             'v': '5.92',
             'city': str(self.city),
@@ -228,7 +235,7 @@ class MainUser(User):
 
 
 if __name__ == "__main__":
-    User = User('eshmargunov')
+    User = User(3648296)
     User.friends_get()
     User.groups_get()
     pprint(User.data_user_get())

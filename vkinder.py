@@ -39,7 +39,7 @@ def top10_users(main_user):
 
 
 if __name__ == "__main__":
-    main_user = MainUser('eshmargunov')
+    main_user = MainUser(3648296)
     main_user.data_user_get()
     main_user.friends_get()
     main_user.groups_get()
