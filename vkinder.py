@@ -1,6 +1,7 @@
 from User.class_User import User, MainUser
 from database.database import DataBase
 from pprint import pprint
+import string
 
 
 def top10_users(main_user):
@@ -39,8 +40,20 @@ def top10_users(main_user):
 
 
 if __name__ == "__main__":
-    main_user = MainUser(3648296)
+    main_user = MainUser('eshmargunov')
     main_user.data_user_get()
+    if len(main_user.interests) == 0:
+        interests = input('Введите ваши интересы через запятую: ')
+        interests = ''.join(l for l in interests if l not in string.punctuation)
+        main_user.interests = set(interests.lower().split())
+    if len(main_user.books) == 0:
+        books = input('Введите ваши любимые книги через запятую: ')
+        books = ''.join(l for l in books if l not in string.punctuation)
+        main_user.books = set(books.lower().split())
+    if len(main_user.music) == 0:
+        music = input('Введите вашу любимую музыку через запятую: ')
+        music = ''.join(l for l in music if l not in string.punctuation)
+        main_user.music = set(music.lower().split())
     main_user.friends_get()
     main_user.groups_get()
     top_10 = top10_users(main_user)
