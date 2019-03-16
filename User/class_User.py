@@ -235,7 +235,7 @@ class MainUser(User):
 
 
 if __name__ == "__main__":
-    User = User(3648296)
+    User = User('eshmargunov')
     User.friends_get()
     User.groups_get()
     pprint(User.data_user_get())
